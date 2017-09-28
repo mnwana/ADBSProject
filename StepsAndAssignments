@@ -1,1 +1,38 @@
+1. pull tweets based on keyword
+    1. keyboard
+    2. dates range
+    3. location
+    4. time of day
+    5. images or no
+    6. number of interactions
+    7. exact or similar matches??
+2. populate database based on search criteria
+   local or within python (sqlite or mongo db)
+3. calculate what is in dashboard
+    1. map based on location
+    2. based on time of day/date
+    3. tweet length
+    4. image collage
+    5. how many similar vs exact matches
+last. build dashboard
+    1. flask for backend and use javascript library for front end (react or angler) plus chart JS for visualization
 
+1. pull tweets based on keyword
+    1. keyboard
+    2. dates range
+    3. location
+    4. time of day
+    5. images or no
+    6. number of interactions
+    7. exact or similar matches??
+2. populate database based on search criteria
+   local or within python (sqlite or mongo db)
+3. calculate what is in dashboard
+    1. map based on location
+    2. based on time of day/date
+    3. tweet length
+    4. image collage
+    5. how many similar vs exact matches
+last. build dashboard
+    1. flask for backend and use javascript library for front end (react or angler) plus chart JS for visualization
+write so that it updates every second/minute/hour etc. 
