@@ -35,4 +35,7 @@ last. build dashboard
     5. how many similar vs exact matches
 last. build dashboard
     1. flask for backend and use javascript library for front end (react or angler) plus chart JS for visualization
-write so that it updates every second/minute/hour etc. 
+write so that it updates every second/minute/hour etc.
+
+Twitter API Key
+vadzcV4cnW0raDQq7oBzZNl08
