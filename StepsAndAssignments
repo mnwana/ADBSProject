@@ -14,6 +14,8 @@
     3. tweet length
     4. image collage
     5. how many similar vs exact matches
+    6. sentiment
+    7. emojis??
 last. build dashboard
     1. flask for backend and use javascript library for front end (react or angler) plus chart JS for visualization
 
@@ -36,6 +38,3 @@ last. build dashboard
 last. build dashboard
     1. flask for backend and use javascript library for front end (react or angler) plus chart JS for visualization
 write so that it updates every second/minute/hour etc.
-
-Twitter API Key
-vadzcV4cnW0raDQq7oBzZNl08
