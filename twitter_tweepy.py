@@ -12,7 +12,6 @@ auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_secret)
 
 es = Elasticsearch()
-es.indices.create(index="twitter_index")
 
 class StreamListener(tweepy.StreamListener):
     status_wrapper = TextWrapper(width=60, initial_indent='    ', subsequent_indent='    ')
@@ -21,13 +20,12 @@ class StreamListener(tweepy.StreamListener):
         try:
 
             json_data = status._json
-            print(json_data['text'])
 
-            es.create(index="idx_twp",
-                      doc_type="twitter_twp",
+            es.create(index="twitter_index",
+                      doc_type="tweet",
                       body=json_data
                       )
-
+            
         except Exception as e:
             print(e)
             pass
@@ -35,7 +33,7 @@ class StreamListener(tweepy.StreamListener):
 streamer = tweepy.Stream(auth=auth, listener=StreamListener())
 
 #Fill with your own Keywords bellow
-terms = ['python']
+terms = ['movie']
 
 streamer.filter(None, terms)
 streamer.disconnect()
