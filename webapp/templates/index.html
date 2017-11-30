@@ -18,8 +18,8 @@
 .my-iframe
 {
     position : absolute;
-    top      : -75px;
-	bottom   : -100px;
+    top      : -35px;
+	bottom   : -30px;
 	left     : -10px;
 	right    : -10px;
 }
@@ -62,19 +62,19 @@
 				</h3>
 					<div class="btn-group">
 						 
-						<button class="btn btn-default" type="button" ng-click="ctrl.selectViz(0)">
+						<button class="btn btn-default" type="button" ng-click="ctrl.selectViz('map')">
 							<span class="glyphicon glyphicon-map-marker"></span> Map
 						</button> 
-						<button class="btn btn-default" type="button" ng-click="ctrl.selectViz(1)">
+						<button class="btn btn-default" type="button" ng-click="ctrl.selectViz('hash')">
 							<span class="glyphicon glyphicon-tags"></span> Hashtag
 						</button> 
-						<button class="btn btn-default" type="button" ng-click="ctrl.selectViz(2)">
+						<button class="btn btn-default" type="button" ng-click="ctrl.selectViz('user')">
 							<span class="glyphicon glyphicon-user"></span> User
 						</button> 
-						<button class="btn btn-default" type="button" ng-click="ctrl.selectViz(3)">
+						<button class="btn btn-default" type="button" ng-click="ctrl.selectViz('sent')">
 							<span class="glyphicon glyphicon-heart"></span> Sentiment
 						</button>
-						<button class="btn btn-default" type="button" ng-click="ctrl.selectViz(4)">
+						<button class="btn btn-default" type="button" ng-click="ctrl.selectViz('vir')">
 							<span class="glyphicon glyphicon-thumbs-up"></span> Viral
 						</button>
 					</div>
@@ -87,9 +87,10 @@
 		</div>
 	</div>
 </div>
-<div ng-repeat="viz in ctrl.viz" class="my-div" ng-show="ctrl.showVis" ng-style="{height: '{{ ' {{viz.height}} ' }}px', width: '{{ ' {{viz.width}} ' }}px'}">
-	<iframe class="my-iframe" scrolling="no" ng-src="{{ '{{viz.url | trusted}}' }}" ng-style="{height: '{{ ' {{viz.height + 100}} ' }}px', width: '{{ ' {{viz.width}} ' }}px'}"></iframe>
-</div>
+<div ng-repeat="viz in ctrl.viz" class="my-div" ng-style="{'height': (viz.height - viz.offset) + 'px', 'width': viz.width + 'px'}">
+	<iframe class="my-iframe" scrolling="no" ng-src="{{ '{{viz.url | trusted}}' }}" ng-style="{'height': viz.height + 'px', 'width': viz.width + 'px'}"></iframe>
+	<br>
+	</div>
 </body>
 
 <script>

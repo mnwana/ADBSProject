@@ -22,18 +22,20 @@ app.controller('ctrl', function($http, $scope) {
 	self.mhashCloudURL = "https://iad1-11037-kibana.es.objectrocket.com:21037/app/kibana#/visualize/edit/AWAKLrhumQ7NZ-r8v9wX?embed=true&_g=(refreshInterval:(display:Off,pause:!f,value:0),time:(from:now%2Fw,mode:quick,to:now%2Fw))&_a=(filters:!(),linked:!f,query:(query_string:(query:'lang:en')),uiState:(),vis:(aggs:!((enabled:!t,id:'1',params:(),schema:metric,type:count),(enabled:!t,id:'2',params:(field:entities.hashtags.text,order:desc,orderBy:'1',size:20),schema:segment,type:terms)),listeners:(),params:(maxFontSize:73,minFontSize:18,orientation:single,scale:log,type:tagcloud),title:'Hashtag+Cloud',type:tagcloud))"
 
 	self.ops = [];
-	self.counter = {'url':self.countURL, 'height':200, 'width':200}
-	self.ops.append({"index":"politics", "type":"map", "url":self.mapURL})
-	self.ops.append({"index":"politics", "type":"map", "url":self.placesURL})
-	self.ops.append({"index":"movies", "type":"hash", "url":self.mhastagURL})
-	self.ops.append({"index":"movies", "type":"hash", "url":self.mapURL})
-	self.ops.append({"index":"politics", "type":"map", "url":self.mapURL})
+	self.counter = {'url':self.countURL, 'height':600, 'width':300}
+	self.ops.push({"index":"politics", "type":"map", "url":self.placesURL, 'height':500, 'width':1100})
+	self.ops.push({"index":"politics", "type":"map", "url":self.mapURL, 'height':600, 'width':1500})
+	self.ops.push({"index":"movies", "type":"hash", "url":self.mhastagURL, 'height':600, 'width':1000})
+	self.ops.push({"index":"movies", "type":"hash", "url":self.mhashCloudURL, 'height':600, 'width':800})
 	self.visURL = "";
 	
 	self.viz = [];
 	
 self.selectViz = function(type){
 	
+	if(self.searchText == ""){
+		self.searchText = "*";
+	}
 	self.viz = [];
 	
 	if(self.fuzzy){
@@ -42,13 +44,13 @@ self.selectViz = function(type){
 		
 	}
 	
-	self.viz.push({'url':self.counter['url'].replace("QUERYHERE", encodeURIComponent(self.searchText)), 'height':self.counter['height'], 'width':self.counter['width']})
+	self.viz.push({'offset':450, 'url':self.counter['url'].replace("QUERYHERE", encodeURIComponent(self.searchText)), 'height':self.counter['height'], 'width':self.counter['width']})
 	
 	
 	for(var i=0; i < self.ops.length; i++){
 		
-		if(self.ops[i][index] == self.index){
-			self.viz.push({'url':self.ops[i]['url'].replace("QUERYHERE", encodeURIComponent(self.searchText)), 'height':self.ops[i]['height'], 'width':self.ops[i]['width']})
+		if(self.ops[i]['index'] == self.index && self.ops[i]['type'] == type){
+			self.viz.push({'offset':0, 'url':self.ops[i]['url'].replace("QUERYHERE", encodeURIComponent(self.searchText)), 'height':self.ops[i]['height'], 'width':self.ops[i]['width']})
 		}
 		
 	}
