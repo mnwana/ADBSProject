@@ -13,3 +13,13 @@ try:
     print("Connected {}".format(es.info()))
 except Exception as ex:
     print("Error: {}".format(ex))
+
+content = {"searchString":""}
+result = es.search(index="politics-2017.11.30", body={"query": {"match_all": {}}}, size=10, sort="retweeted_status.retweet_count:desc")['hits']['hits']
+tweets = []
+for res in result:
+    ratio = res['_source']['retweeted_status']['retweet_count'] / res['_source']['retweeted_status']['user']['followers_count']
+    tweets.append({'user':res['_source']['retweeted_status']['user']['screen_name'], "text":res['_source']['retweeted_status']['text'], 'ratio':ratio})
+    
+for w in sorted(tweets, key=tweets.ratio, reverse=True):
+  print(w)
