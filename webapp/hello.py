@@ -4,7 +4,8 @@ import atexit
 import cf_deployment_tracker
 import os
 import json
-
+from elasticsearch import Elasticsearch
+import certifi
 
 
 # Emit Bluemix deployment event
@@ -18,7 +19,14 @@ db = None
 
 
 
-
+es = Elasticsearch(['iad1-11037-0.es.objectrocket.com', 'iad1-11037-1.es.objectrocket.com', 'iad1-11037-2.es.objectrocket.com', 'iad1-11037-3.es.objectrocket.com'],
+        http_auth=('adbadmin', 'password'),
+        port=21037, 
+        use_ssl=True,
+        verify_certs=True,
+        ca_certs=certifi.where(),
+    )
+print("Connected {}".format(es.info()))
 
 
 if 'VCAP_SERVICES' in os.environ:
@@ -50,6 +58,12 @@ port = int(os.getenv('PORT', 5000))
 def home():
     return render_template('index.html')
     
+@app.route('/getViral', methods=['POST'])
+def getViral():
+    content = request.get_json(silent=True)
+    res = es.search(index="politics-2017.11.30", body={"query": {"match_all": {content['searchString']}}}, size=10, sort="retweeted_status.retweet_count:desc")['hits']['hits']
+    final = 
+    return jsonify(selectedRecipe.recipeInfo)
 
 @atexit.register
 def shutdown():
