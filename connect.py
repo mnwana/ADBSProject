@@ -15,14 +15,15 @@ except Exception as ex:
     print("Error: {}".format(ex))
 
 content = {"searchString":""}
-result = es.search(index="politics-2017.11.30", body={"query": {"match_all": {}}}, size=10, sort="retweeted_status.retweet_count:desc")['hits']['hits']
 result = es.search(index="politics-2017.11.30", body={"query": {"match_all": {}}}, size=1000, sort="retweeted_status.retweet_count:desc")['hits']['hits']
 tweets = []
 for res in result:
     ratio = res['_source']['retweeted_status']['retweet_count'] / res['_source']['retweeted_status']['user']['followers_count']
     #res["ratio"] = ratio
+    username = res['_source']['retweeted_status']['user']['screen_name']
+    textfield = res['_source']['retweeted_status']['text']
     
-    tweets.append({'user':res['_source']['retweeted_status']['user']['screen_name'], "text":res['_source']['retweeted_status']['text'], 'ratio':ratio})
+    tweets.append({'user': username, "text": textfield, 'ratio':ratio})
 
 
 for w in sorted(tweets, key=lambda k: k['ratio'], reverse=True):
